@@ -1,0 +1,9 @@
+Keep a strong focus on trying to find any related articles with regard to automation of fault detection and repair sequences. The closest field would be electronics, however this could also include domestic whitegoods, automotive, robotics etc.
+
+Review your flow chart of actions and begin forming a test / experiment that could be developed to prove one (or more) of the most common / most expensive / most manually time consuming actions in the phone repair sequence.
+
+Research other prototypes or test rigs for similar tests to see if you can leverage off their experience.
+
+Start a conversation with the team from UON Workshops to get their input on how they can advise you / help you to develop a prototype.
+
+I would just focus on those steps for now Rupom - we can come back and update the Literature Review, Flow Charts, Gantt schedules etc
