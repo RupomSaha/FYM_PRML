@@ -1,0 +1,710 @@
+Received: from ME0P282MB5416.AUSP282.PROD.OUTLOOK.COM (2603:10c6:220:23a::12)
+ by SYYP282MB0864.AUSP282.PROD.OUTLOOK.COM with HTTPS; Sat, 20 Apr 2024
+ 22:38:44 +0000
+ARC-Seal: i=2; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=pass;
+ b=SrRVIvboi0KFN6McKiTCkb22W7lnXsQeeIBvynGMzFJnyFRFRfEnRpOj0p71P78pV5oXOHgiww5hWLAW6YlWxUkmAD3shaLaZDPMLBXf4JGDYp+VPd29yelK9lEqMIrTOZeHdzwD4dStdiWG0Dmcj2bTWomAu0jvvkxOBCRgbZ+9nHD8xg/zW+P9J4klt5Mf+b39QQ9RgFkI+KtLGsrlZEcQ93sAPoB3HjahI0/2Ic/OLWXIq2sHzGGJ800RTSoTVtWeZWW8bT9aV4n4Gh6yVQFWz93+CA6JdjCkKejZxSdw1pVPmTplLuDdaWcCFmauA+oI/EV+14miaHNaY311qg==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=4OP8XkahJjbK2rlQXCDAMQLO4G2OL2YTSvTokLtgn48=;
+ b=Q93wMKCP3X9SEZjoUVfnELaKv2vmcej7q+7zFyCJyHro2XRZbpw/U5nZXDfCTft3CA7BCO9576uy4eQ0IRNzOMiEBSOz+tolBMb13BlTpVR4dB+QjLCYxFW6QoXuO2ppb14GxDuWg5ZxYpgYl4ggqALBfOGz5udkiE5pMFcWBnuWj7kvLN8eYc/uzSvSRmwom7RMmhfgTJyK+sEKtRFTKzsTa8xW7eegkAgUdsG7HXWakYBqcXV1atcq61YdTHXVSH9o3kznxVPDv47srwKCCWjbCjpDJdvDSM9nKIwovM5jlBXn3n0idN6+gMNWvic+9/LTMIZ6RcAH3+KbetT3fw==
+ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=temperror (sender ip
+ is 103.96.20.101) smtp.rcpttodomain=uon.edu.au
+ smtp.mailfrom=newcastle.edu.au; dmarc=temperror action=none
+ header.from=newcastle.edu.au; dkim=fail (body hash did not verify)
+ header.d=newcastle.edu.au; arc=pass (0 oda=0 ltdi=0 93)
+Received: from BN9PR03CA0942.namprd03.prod.outlook.com (2603:10b6:408:108::17)
+ by ME0P282MB5416.AUSP282.PROD.OUTLOOK.COM (2603:10c6:220:23a::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7472.44; Sat, 20 Apr
+ 2024 22:38:41 +0000
+Received: from BN3PEPF0000B06C.namprd21.prod.outlook.com
+ (2603:10b6:408:108:cafe::e6) by BN9PR03CA0942.outlook.office365.com
+ (2603:10b6:408:108::17) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7495.32 via Frontend
+ Transport; Sat, 20 Apr 2024 22:38:40 +0000
+Authentication-Results: spf=temperror (sender IP is 103.96.20.101)
+ smtp.mailfrom=newcastle.edu.au; dkim=fail (body hash did not verify)
+ header.d=newcastle.edu.au;dmarc=temperror action=none
+ header.from=newcastle.edu.au;compauth=pass reason=116
+Received-SPF: TempError (protection.outlook.com: error in processing during
+ lookup of newcastle.edu.au: DNS Timeout)
+Received: from au-smtp-inbound-delivery-1.mimecast.com (103.96.20.101) by
+ BN3PEPF0000B06C.mail.protection.outlook.com (10.167.243.71) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.20.7519.0
+ via Frontend Transport; Sat, 20 Apr 2024 22:38:37 +0000
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=dkim.mimecast.com; s=201903; t=1713652714;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references:dkim-signature;
+	bh=4OP8XkahJjbK2rlQXCDAMQLO4G2OL2YTSvTokLtgn48=;
+	b=LsRz8ISD1nCRh6vGIDun7VFs1QUD0f5c1JFcP2f2AUQjguocsg8keKDC+YDqM1Aookqn70
+	DDeNj2fMQpfKb5y+hL8uJig/BgD2zhi4R9IQnln64r74YOFZCYNvjKkOVd77GhdASfiMfB
+	24M6ZmGBmp4HYNul+/cgvSDHzqdq7Ls48BDiDDujyo2Tp+HZ9hibj/qLOd/6J9YrE/s9TI
+	k/+9bEdHXfclM98mXp2i/5jUq/6gwiPSM1bxt4aiPeyrAwS/hMhJTICyDQIX1JzvYLbkn6
+	33gWahsBqHQ3lDK4c0nnNeVTdLohqJUCpJLaGakKZqVhg6Atv7+D4Rm0lPmsOA==
+ARC-Seal: i=1; s=201903; d=dkim.mimecast.com; t=1713652714; a=rsa-sha256;
+	cv=none;
+	b=G2MqCZkin6xSd8cY3aaSlY+vXTOM1Nlsw3sZSADs3nJ/G9oQUcLBjvTP+n0h4zHY0Zoj/8
+	OwUDboOsOZgBMLSZY55u0Dt3Ot/vFcaRZORbhaGP2fXqoREeURBph+cFCo0NTo1xOGvhs/
+	VlKu5ZqP7gUAnRMGKsRW7/tn67RWapl5C7QHtvPZlaJGipj4RH1jow9/8DyKDSObrqUfNl
+	g1+N9/7C1KOZEpP+xAcBfIeyKg8WbGNA8GwwRJq4A2rnTkDDDms+uEMT1vHy2phhiKMe9O
+	DAPt1gdupH6xAqLr3yWk7lNQrkRQdx1mFGgj7oMBeFwUWnEZKDirst0W0EjKYg==
+ARC-Authentication-Results: i=1;
+	relay.mimecast.com;
+	dkim=pass header.d=newcastle.edu.au header.s=mimecast20190925 header.b=SD3WN3X6;
+	dmarc=pass (policy=quarantine) header.from=newcastle.edu.au;
+	spf=pass (relay.mimecast.com: domain of jiabao.yi@newcastle.edu.au designates 103.96.21.115 as permitted sender) smtp.mailfrom=jiabao.yi@newcastle.edu.au
+Authentication-Results-Original: relay.mimecast.com;	dkim=pass
+ header.d=newcastle.edu.au header.s=mimecast20190925 header.b=SD3WN3X6;
+	dmarc=pass (policy=quarantine) header.from=newcastle.edu.au;	spf=pass
+ (relay.mimecast.com: domain of jiabao.yi@newcastle.edu.au designates
+ 103.96.21.115 as permitted sender) smtp.mailfrom=jiabao.yi@newcastle.edu.au
+Received: from au-smtp-delivery-115.mimecast.com
+ (au-smtp-delivery-115.mimecast.com [103.96.21.115]) by relay.mimecast.com
+ with ESMTP with STARTTLS (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384)
+ id au-mta-11-tFK201l8NYO54DLXrXUvXA-1; Sun, 21 Apr 2024 08:38:31 +1000
+X-MC-Unique: tFK201l8NYO54DLXrXUvXA-1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=newcastle.edu.au;
+	s=mimecast20190925; t=1713652711;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ogqGF1eu2FSZhqsqo0hyfhv4qDQ97Nv8yQn/8qK7+Ao=;
+	b=SD3WN3X6M0nhzMC1j4BhhzDS0s/cSqS0OMNbC900XuYR98xk91dpfL0UJ07SWzwPgKGE4l
+	W009d1U/omB89veeEJII4Fq5wHSjFVoq8frosFmWzI6muZ7jbwH5Y8iJnbf/6GMk0GLiG5
+	emcw7cMGPu56NK8XczCXa+bkEYWhXMA=
+Received: from AUS01-SY4-obe.outbound.protection.outlook.com
+ (mail-sy4aus01lp2169.outbound.protection.outlook.com [104.47.71.169]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ au-mta-11-19_iDlErN_CqQDo9XihaTA-1; Sun, 21 Apr 2024 08:38:25 +1000
+X-MC-Unique: 19_iDlErN_CqQDo9XihaTA-1
+Received: from SYBP282MB2881.AUSP282.PROD.OUTLOOK.COM (2603:10c6:10:154::6) by
+ SY4P282MB3663.AUSP282.PROD.OUTLOOK.COM (2603:10c6:10:1c2::12) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.7472.44; Sat, 20 Apr 2024 22:38:23 +0000
+Received: from SYBP282MB2881.AUSP282.PROD.OUTLOOK.COM
+ ([fe80::9d45:23d9:c88d:fdf4]) by SYBP282MB2881.AUSP282.PROD.OUTLOOK.COM
+ ([fe80::9d45:23d9:c88d:fdf4%3]) with mapi id 15.20.7472.044; Sat, 20 Apr 2024
+ 22:38:23 +0000
+From: Jiabao Yi <Jiabao.Yi@newcastle.edu.au>
+To: Rupom Saha <Rupom.Saha@uon.edu.au>
+CC: Warren Reilly <warren.reilly@newcastle.edu.au>
+Subject: RE: FYP Final Report Eaxmples
+Thread-Topic: FYP Final Report Eaxmples
+Thread-Index: AQHakq8P4lvllj/XWEKD0xK85F/MtLFxvpvg
+Date: Sat, 20 Apr 2024 22:38:23 +0000
+Message-ID: <SYBP282MB2881E6498260B4F6C96B8E37DA0C2@SYBP282MB2881.AUSP282.PROD.OUTLOOK.COM>
+References: <SYYP282MB0864E15C4478ACEA703E5B02AE0D2@SYYP282MB0864.AUSP282.PROD.OUTLOOK.COM>
+In-Reply-To: <SYYP282MB0864E15C4478ACEA703E5B02AE0D2@SYYP282MB0864.AUSP282.PROD.OUTLOOK.COM>
+Accept-Language: en-US
+X-MS-Has-Attach: yes
+X-MS-TNEF-Correlator:
+msip_labels:
+x-ms-traffictypediagnostic:
+ SYBP282MB2881:EE_|SY4P282MB3663:EE_|BN3PEPF0000B06C:EE_|ME0P282MB5416:EE_|SYYP282MB0864:EE_
+X-MS-Office365-Filtering-Correlation-Id: afc0f52f-138c-480c-e559-08dc618a9ff6
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+X-Microsoft-Antispam-Untrusted: BCL:0
+X-Microsoft-Antispam-Message-Info-Original:
+ =?us-ascii?Q?w8bE/zvettSsg7NMRydDFF9+URbjSO/wTtMYoWD7OpjVJJ08N5OpP93TelgG?=
+ =?us-ascii?Q?zhidTGz85IG6d5rNJYhM1KECigH5KZboXRNDALB41K9zyOUUKnyW+48OAUb/?=
+ =?us-ascii?Q?H/ZlA8NLTebt979xB7YeOaG5emRxYUA3NbHH0XeLEXR0OVBd+8Q5F8wDxZCH?=
+ =?us-ascii?Q?iSo+E4kuoKbiqA8moKcy2OLvBNDxUqHizLArBeD3WAtlJ77j1NKqTOZ5dSdK?=
+ =?us-ascii?Q?jQ9zzkuaYdb8dYjFrAvmlnVrA/EpOdzRFXxQ7mfNWIovNAiSiPTpPIyFE2NV?=
+ =?us-ascii?Q?ok9AxcOoRW9WWX5v/wh3oBgP7wmGTvbaB5hLjHgt0/or8LG27dgCm0nKNzue?=
+ =?us-ascii?Q?NldHCKtU3Ec8HZksaNJGgj6S/4CvAfIMvaBRJekxy02Q642A1hlm+BzlqzgK?=
+ =?us-ascii?Q?aj9SvvODULdYAKADpZxoSOjC3rwZ4Mrlnq16Mqo8UD2gjPxtv4r7jGpszASZ?=
+ =?us-ascii?Q?Ij8jcb36Bc0Nb2013XfC5RrNb8h8xwherVzrfzk/v/eylljHHlbEsalUGdfb?=
+ =?us-ascii?Q?dtRUhMd+DKywFyr/CIrkKvzttu7CtkZexawYADYZBqmMDfssWKOt3cZiaTbv?=
+ =?us-ascii?Q?aFVGVhUC5x/PGsq8rUilbudmdSyoIkVAkaPmjMpozJsg56xnrE5+qp0TjfFr?=
+ =?us-ascii?Q?jI6fQgebjAHz/ENeLwpkoaS+zi5awNNdu5K5ctkBKQ98HpfjPb0tNHli/SGY?=
+ =?us-ascii?Q?2Wo3oHsO8kupwm7x4lG3YEuc+jtZfKdSzxlzX6ekbFuCgHIeo0yGCyEEr+rF?=
+ =?us-ascii?Q?iWX7yZOSe3PNwAhWXkeSu3EKPT+i7SM5S1JhVTi4fI5pNv0seCtbwJNmG1wJ?=
+ =?us-ascii?Q?SXWdq+X2b908B/BCqPHf66MPgpyHOmwRS+bUol4ro9aeGSWyt2wFIkQfkIJ7?=
+ =?us-ascii?Q?9f1dMDTBAjj1Umm7qOCeQyGI/+s/mENuNSU/3ZAK4pbJE1Rk2mceLYrUymtD?=
+ =?us-ascii?Q?3lFGFvUptORe24Yk526Tk7/L2gqmqLkFd0GOQO5w5439h7xZ4PGzcEZi6aUs?=
+ =?us-ascii?Q?eI3MMxRi/RCmO6Ko64NQirbLoi2DAKPBw+Jb5Crd7m6Y8jA/I+ZTEHpkgIH6?=
+ =?us-ascii?Q?4Sd/kJJ52OgVICvD/PmaRHYoKRomka3duSJgXWDWdmpuY1qMMZKd5el/rcmC?=
+ =?us-ascii?Q?8wYJSWzJNeBauDEM+xmW0lXDH+Ni6g6yuLHxpi58U8ENuvulyV5Swo2zin0J?=
+ =?us-ascii?Q?mcU+XM2po5IycK6KRe5bxwoK2v/gS0wAo0/OXZDJfPU2WqCX/CJRdcUBvuUF?=
+ =?us-ascii?Q?iqWNLUyJ6LClkMwRCq98w8Vu7qc2pN4DiozUXaot/BkSnD3QhVXhQCnUrBkd?=
+ =?us-ascii?Q?2fk3Tx2mF/y3ivZJLyiXq/Ry0VXDe10X7v48iguZhY04pA=3D=3D?=
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SYBP282MB2881.AUSP282.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230031)(366007)(1800799015)(376005)(38070700009);DIR:OUT;SFP:1102
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SY4P282MB3663
+X-Mimecast-Originator: newcastle.edu.au
+X-Mimecast-Spam-Score: -4
+Content-Language: en-US
+Content-Type: multipart/related;
+	boundary="_004_SYBP282MB2881E6498260B4F6C96B8E37DA0C2SYBP282MB2881AUSP_";
+	type="multipart/alternative"
+Return-Path: jiabao.yi@newcastle.edu.au
+X-MS-Exchange-Organization-ExpirationStartTime: 20 Apr 2024 22:38:39.6906
+ (UTC)
+X-MS-Exchange-Organization-ExpirationStartTimeReason: OriginalSubmit
+X-MS-Exchange-Organization-ExpirationInterval: 1:00:00:00.0000000
+X-MS-Exchange-Organization-ExpirationIntervalReason: OriginalSubmit
+X-MS-Exchange-Organization-Network-Message-Id:
+ afc0f52f-138c-480c-e559-08dc618a9ff6
+X-EOPAttributedMessage: 0
+X-EOPTenantAttributedMessage: ee903dcb-2b77-4da5-be02-c45235783dad:0
+X-MS-Exchange-Organization-MessageDirectionality: Incoming
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ BN3PEPF0000B06C.namprd21.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Exchange-Organization-AuthSource:
+ BN3PEPF0000B06C.namprd21.prod.outlook.com
+X-MS-Exchange-Organization-AuthAs: Anonymous
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+ d3f62028-6f9e-476d-0bae-08dc618a9643
+X-MS-Exchange-Organization-BypassClutter: true
+X-MS-Exchange-Organization-SCL: 1
+X-Microsoft-Antispam: BCL:0;
+X-Forefront-Antispam-Report:
+ CIP:103.96.20.101;CTRY:AU;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:au-smtp-inbound-delivery-1.mimecast.com;PTR:au-smtp-inbound-delivery-1.mimecast.com;CAT:NONE;SFS:(13230031)(82310400014);DIR:INB;
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Apr 2024 22:38:37.0813
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: afc0f52f-138c-480c-e559-08dc618a9ff6
+X-MS-Exchange-CrossTenant-Id: ee903dcb-2b77-4da5-be02-c45235783dad
+X-MS-Exchange-CrossTenant-AuthSource:
+ BN3PEPF0000B06C.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: Internet
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: ME0P282MB5416
+X-MS-Exchange-Transport-EndToEndLatency: 00:00:07.5241046
+X-MS-Exchange-Processed-By-BccFoldering: 15.20.7472.035
+X-Microsoft-Antispam-Mailbox-Delivery:
+	ucf:0;jmr:0;auth:0;dest:I;ENG:(910001)(944506478)(944626604)(920097)(930097)(140003);
+X-Microsoft-Antispam-Message-Info:
+	=?Windows-1252?Q?+etRJXREvaljET4jOk2aqhCaTS/47vxzEouWhTDNS/z6rp1dLnGdhS0w?=
+ =?Windows-1252?Q?YRb5ZRfqd26NhPT0eaufhLO9EdcI60GiGiSgMAm7yMVG6hKo2d5jWkQ3?=
+ =?Windows-1252?Q?K7hGHd66vsVWkWdzuxqVdULm0UGOEp9sF6gC0KNbyfIxWixUquKFQWHH?=
+ =?Windows-1252?Q?vp9YGelR/0jvLm3ISCordrpxirjShtnsUGrxatOwjTcFEPWt5Y402b2A?=
+ =?Windows-1252?Q?Wh9rG7Od487xvveUZDsbaICCJs8PHurW0glSjCRc4Jp1U7GoBHnlnpjE?=
+ =?Windows-1252?Q?Jcgk/aOBMqUDj0ybFS56M+YUAjVK939h5D9Wf9gNCWtXc6eNcU6kEaqn?=
+ =?Windows-1252?Q?oGJtbSrNz74PSEJEhwm8co/VkxbXHRosuHPJqxpsyKf1Gh/1T/jt4Jer?=
+ =?Windows-1252?Q?4R7QILT4IbKMBhjQB6m2I95v7qCbsuACP6ocfTiDOBXyBEkggVx7QvBL?=
+ =?Windows-1252?Q?BmIES7bRFGZLZZRaTf52nkZEBkQeUPYgcPZDLpmjE4jkwgW68rzHOVe6?=
+ =?Windows-1252?Q?0pjuKPP6riPnDhXVaBSYFcRIV/r49wPvQE+9E/T7mmSb0KynZDMML6M1?=
+ =?Windows-1252?Q?IyXqJMZew4Dw43yY29TS8GVjHlkyMY8VyGh/h8JKdpxnXlhIeSTTto3L?=
+ =?Windows-1252?Q?VK6xn8AmAdgl5qlZibaMHjWo8CLiSSTftRgwP7pvXUPeJT1Gd0oZXc5K?=
+ =?Windows-1252?Q?xbit48fs5z4N2EgTfanerf9S0gfplgKv24KMocKzKwQgW6AzWAc/x2n+?=
+ =?Windows-1252?Q?6mUsX5k/oUvFl62NUiGUpbs68DF5NA/XT3cqhDCHnzMKLbuhIGnRltN1?=
+ =?Windows-1252?Q?3Qenbvn9wJ/ZEF9KJemm262dKpBeTGol334UWitoRG0ZIDJdCIu4vN07?=
+ =?Windows-1252?Q?Idq+LH4zGz4k/nojtEXZP1b2PX10IcXsZ1DHYShxCwqPp2WfKhv3JVpw?=
+ =?Windows-1252?Q?IQ+IN4HnK8+a99lSPzaznisfaBw1tgaYo2eeE4u3J2fJs5JcLfqzGnO5?=
+ =?Windows-1252?Q?PJAu8nCxsw3V2nF8BUQGr/h5+aARozZT/QNQkddLBgGhnQhDtRq+Zgu7?=
+ =?Windows-1252?Q?enMRgQLhkYPASAuJZ9C6Rob2jUmCn70uaiTVSCho4LZT5eQnzj/PuWfm?=
+ =?Windows-1252?Q?w9qk7Vf1Vzsm6JSYOgcHRaZj28yUcgEh9ZSlePTj0LPbeCy+h43txLDf?=
+ =?Windows-1252?Q?CaFvr5fFtaOk6z4EImU6LR4+EuteL7Bd3m48yoIWCagfneWYpdzK0PPL?=
+ =?Windows-1252?Q?zMZW1I4/cRgEl+ln54La83x2dXpp1GlCdQo6ZU9se53PK21nTyfsQSg+?=
+ =?Windows-1252?Q?R5ACjFnmANzwFle8ggrvvmpiMqKIJu3n7FRSkRNTECKnfMCmRnP2xmmJ?=
+ =?Windows-1252?Q?rHt54fRrlSNk+tAS3vqFdJVXoqyyMT14HghUm2N/nesx79btwYvEt2zz?=
+ =?Windows-1252?Q?587aI7sS3gSbTyan5FfOyXDNMOd3S0r0nJtbX/qya3jKRomoPO/hHdXZ?=
+ =?Windows-1252?Q?B8u3RbfwnQkmjkto9sLxR52W/GwF20WhxL4W8nYHiTfL8QxTWDe/QNwN?=
+ =?Windows-1252?Q?RbS188FywccgXylgKuWMWMstTaXhskSz5TU8IAreexNPwxuTh2YIPO8m?=
+ =?Windows-1252?Q?6JsiNeWqV4lmw4hCJDNYzKjia+MMS4Ou7Uy3p+ZMC93GnEIISITWAT1T?=
+ =?Windows-1252?Q?hv624lpBnV+API19WNComaMedamSVCmZ4MKQy+FkXdCYVsfdBSM65/xZ?=
+ =?Windows-1252?Q?IUZDH0CfQIJq5xse8VGzt9TFh9LKjuLOb/kDSU49ENrwrvc4UxtUV7kU?=
+ =?Windows-1252?Q?kTOkuEzOU8YE5edP0BydphyCQHXgIBhB5hdI6vJTFcXVOP8SesD8znAc?=
+ =?Windows-1252?Q?PpDEjNnXDvGchm2a9Bhytcn7NRIlA5nTEGOmyfhqfuItGvkdZb0sWq9t?=
+ =?Windows-1252?Q?JSJWBd7+4HB4IeuhhMJ4BrscF42X7xxpbLB6VrB0oKSLRh7hpzteFA3T?=
+ =?Windows-1252?Q?hap0kzzT?=
+MIME-Version: 1.0
+
+--_004_SYBP282MB2881E6498260B4F6C96B8E37DA0C2SYBP282MB2881AUSP_
+Content-Type: multipart/alternative;
+	boundary="_000_SYBP282MB2881E6498260B4F6C96B8E37DA0C2SYBP282MB2881AUSP_"
+
+--_000_SYBP282MB2881E6498260B4F6C96B8E37DA0C2SYBP282MB2881AUSP_
+Content-Type: text/plain; charset=WINDOWS-1252
+Content-Transfer-Encoding: quoted-printable
+
+Dear Rupom,
+Thanks for your email. Previously, some students have asked for the example=
+s. However, I cannot send these to you since I need to get permission from =
+the students (copyright issue). I am very sorry for that. You supervisor sh=
+ould have his previous students' FYP theses. In addition, I emphasized here=
+: Supervisor plays a critical role in the FYP marking since your supervisor=
+ is more familiar with your research area than other examiners. From my sid=
+e, generally, your thesis should have correct structure, like abstract (sum=
+mary), introduction, literature review, experiment procedures, results and =
+discussion, conclusion and future prospectives, references, appendix.
+As I talked in class: (1) Your thesis should have at least 50 pages. (2) Yo=
+u should have both results and discussion, not just list your results. (3) =
+Free of grammar errors. (4) Review your current research area and find the =
+gaps, what methods, techniques to overcome the gaps, then you need to expla=
+in why you choose the topic, what methods you will choose and why choose th=
+ese methods, what expected outcomes. With these, you can easily to pass, to=
+ get credit, even distinction. However, for getting HD, you need excellent =
+writing skills, your discussion with your results very deep, your work may =
+be publishable etc. Hope this can help you.
+
+Kind regards,
+
+Jiabao Yi
+Professor
+Global Innovative Center for Advanced Nanomaterials (GICAN)
+& Discipline of Aerospace Systems, Mechanical and Mechatronics Engineering
+School of Engineering
+University of Newcastle (UON)
+Callaghan, NSW, 2308
+Australia
+
+T: +61 2 4921 <tel:(02)%204921%208669> 6614
+M: +61 (0) 4<tel:0406%20010%20879>25 749 816
+E: jiabao.yi@newcastle.edu.au<mailto:jiabao.yi@newcastle.edu.au>
+W: https://url.au.m.mimecastprotect.com/s/aBmqCP7LGvtK5o84XTz2DZM?domain=3D=
+scholar.google.com.au
+W:  https://www.newcastle.edu.au/profile/jiabao-yi
+GICAN Website: https://www.newcastle.edu.au/research-and-innovation/centre/=
+gican/about-us
+
+
+[The University of Newcastle]<https://newcastle.edu.au/>
+Top 200 University in the world by QS World University Rankings 2021
+I acknowledge the Traditional Custodians of the land in which the Universit=
+y resides and pay my respect to Elders past, present and emerging.
+I extend this acknowledgement to the Awabakal people of the land in which t=
+he Callaghan campus resides and which I work.
+CRICOS Provider 00109J
+
+
+From: Rupom Saha <Rupom.Saha@uon.edu.au>
+Sent: Saturday, April 20, 2024 9:21 AM
+To: Jiabao Yi <Jiabao.Yi@newcastle.edu.au>
+Cc: Warren Reilly <warren.reilly@newcastle.edu.au>
+Subject: FYP Final Report Eaxmples
+
+Hello Sir,
+
+I had a discussion with my supervisor and we were wondering if you or anyon=
+e who can, will be able to provide me with some examples of FYP reports tha=
+t guarantees a passing mark.
+
+It will be highly appreciated if there were multiple examples of different =
+passing grades, like Pass, Credit and Distinction, even one Higher Distinct=
+ion. I would love to conclude my FYP on a good note and seeing an example w=
+ill greatly increase the chances of that.
+
+Thank you.
+
+Sincerely,
+Rupom Saha
+c3268577
+
+--_000_SYBP282MB2881E6498260B4F6C96B8E37DA0C2SYBP282MB2881AUSP_
+Content-Type: text/html; charset=WINDOWS-1252
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40"><head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DWindows-1=
+252">
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style><![endif]--><style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:DengXian;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:Aptos;}
+@font-face
+	{font-family:"\@DengXian";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0cm;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+span.EmailStyle19
+	{mso-style-type:personal-reply;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;
+	mso-ligatures:none;}
+@page WordSection1
+	{size:612.0pt 792.0pt;
+	margin:72.0pt 72.0pt 72.0pt 72.0pt;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-AU" link=3D"#0563C1" vlink=3D"#954F72" style=3D"word-wrap:=
+break-word">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal">Dear Rupom,<o:p></o:p></p>
+<p class=3D"MsoNormal">Thanks for your email. Previously, some students hav=
+e asked for the examples. However, I cannot send these to you since I need =
+to get permission from the students (copyright issue). I am very sorry for =
+that. You supervisor should have his
+ previous students=92 FYP theses. In addition, I emphasized here: Superviso=
+r plays a critical role in the FYP marking since your supervisor is more fa=
+miliar with your research area than other examiners. From my side, generall=
+y, your thesis should have correct
+ structure, like abstract (summary), introduction, literature review, exper=
+iment procedures, results and discussion, conclusion and future prospective=
+s, references, appendix.
+<o:p></o:p></p>
+<p class=3D"MsoNormal">As I talked in class: (1) Your thesis should have at=
+ least 50 pages. (2) You should have both results and discussion, not just =
+list your results. (3) Free of grammar errors. (4) Review your current rese=
+arch area and find the gaps, what
+ methods, techniques to overcome the gaps, then you need to explain why you=
+ choose the topic, what methods you will choose and why choose these method=
+s, what expected outcomes. With these, you can easily to pass, to get credi=
+t, even distinction. However, for
+ getting HD, you need excellent writing skills, your discussion with your r=
+esults very deep, your work may be publishable etc. Hope this can help you.
+<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Kind regards,<o:p></o:p></p>
+<div>
+<p class=3D"MsoNormal" style=3D"background:white"><span lang=3D"EN-US" styl=
+e=3D"font-size:9.0pt;font-family:&quot;Arial&quot;,sans-serif;color:black;m=
+so-ligatures:standardcontextual;mso-fareast-language:EN-AU"><br>
+</span><span style=3D"color:black;mso-ligatures:standardcontextual;mso-fare=
+ast-language:EN-AU">Jiabao Yi</span><span style=3D"color:black;mso-fareast-=
+language:EN-AU"><o:p></o:p></span></p>
+<p class=3D"MsoNormal" style=3D"background:white"><span style=3D"color:blac=
+k;mso-ligatures:standardcontextual;mso-fareast-language:EN-AU">Professor<o:=
+p></o:p></span></p>
+<p class=3D"MsoNormal" style=3D"background:white"><span style=3D"color:blac=
+k;mso-ligatures:standardcontextual;mso-fareast-language:EN-AU">Global Innov=
+ative Center for Advanced Nanomaterials (GICAN)</span><span style=3D"font-s=
+ize:12.0pt;font-family:&quot;Arial&quot;,sans-serif;color:#222222;mso-ligat=
+ures:standardcontextual;mso-fareast-language:EN-AU"><o:p></o:p></span></p>
+<p class=3D"MsoNormal" style=3D"background:white"><span lang=3D"EN-US" styl=
+e=3D"font-size:9.0pt;font-family:&quot;Arial&quot;,sans-serif;color:black;m=
+so-ligatures:standardcontextual;mso-fareast-language:EN-AU">&amp; Disciplin=
+e of Aerospace Systems, Mechanical and Mechatronics Engineering<o:p></o:p><=
+/span></p>
+<p class=3D"MsoNormal" style=3D"background:white"><span lang=3D"EN-US" styl=
+e=3D"font-size:9.0pt;font-family:&quot;Arial&quot;,sans-serif;color:black;m=
+so-ligatures:standardcontextual;mso-fareast-language:EN-AU">School of Engin=
+eering<o:p></o:p></span></p>
+<p class=3D"MsoNormal" style=3D"background:white"><span lang=3D"EN-US" styl=
+e=3D"font-size:9.0pt;font-family:&quot;Arial&quot;,sans-serif;color:black;m=
+so-ligatures:standardcontextual;mso-fareast-language:EN-AU">University of N=
+ewcastle (UON)<o:p></o:p></span></p>
+<p class=3D"MsoNormal" style=3D"background:white"><span lang=3D"EN-US" styl=
+e=3D"font-size:9.0pt;font-family:&quot;Arial&quot;,sans-serif;color:black;m=
+so-ligatures:standardcontextual;mso-fareast-language:EN-AU">Callaghan, NSW,=
+ 2308<o:p></o:p></span></p>
+<p class=3D"MsoNormal" style=3D"background:white"><span lang=3D"EN-US" styl=
+e=3D"font-size:9.0pt;font-family:&quot;Arial&quot;,sans-serif;color:black;m=
+so-ligatures:standardcontextual;mso-fareast-language:EN-AU">Australia<o:p><=
+/o:p></span></p>
+<p class=3D"MsoNormal" style=3D"background:white"><span style=3D"font-size:=
+12.0pt;color:#222222;mso-ligatures:standardcontextual;mso-fareast-language:=
+EN-AU"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal" style=3D"background:white"><span lang=3D"EN-US" styl=
+e=3D"font-size:9.0pt;font-family:&quot;Arial&quot;,sans-serif;color:black;m=
+so-ligatures:standardcontextual;mso-fareast-language:EN-AU">T:&nbsp;</span>=
+<span lang=3D"EN-US" style=3D"font-size:9.0pt;font-family:&quot;Arial&quot;=
+,sans-serif;color:#2F5496;mso-ligatures:standardcontextual;mso-fareast-lang=
+uage:EN-AU"><a href=3D"tel:(02)%204921%208669" target=3D"_blank"><span styl=
+e=3D"color:#2F5496">+61
+ 2 4921&nbsp;</span></a>6614</span><span lang=3D"EN-US" style=3D"font-size:=
+9.0pt;font-family:&quot;Arial&quot;,sans-serif;color:black;mso-ligatures:st=
+andardcontextual;mso-fareast-language:EN-AU"><br>
+M:&nbsp;</span><span lang=3D"EN-US" style=3D"font-size:9.0pt;font-family:&q=
+uot;Arial&quot;,sans-serif;color:#2F5496;mso-ligatures:standardcontextual;m=
+so-fareast-language:EN-AU"><a href=3D"tel:0406%20010%20879" target=3D"_blan=
+k"><span style=3D"color:#2F5496">+61 (0)&nbsp;4</span></a>25 749
+ 816</span><span lang=3D"EN-US" style=3D"font-size:9.0pt;font-family:&quot;=
+Arial&quot;,sans-serif;color:black;mso-ligatures:standardcontextual;mso-far=
+east-language:EN-AU"><br>
+E: </span><u><span lang=3D"EN-US" style=3D"font-size:9.0pt;font-family:&quo=
+t;Arial&quot;,sans-serif;color:#2F5496;mso-ligatures:standardcontextual;mso=
+-fareast-language:EN-AU"><a href=3D"mailto:jiabao.yi@newcastle.edu.au"><spa=
+n style=3D"color:#2F5496">jiabao.yi@newcastle.edu.au</span></a></span></u><=
+span lang=3D"EN-US" style=3D"font-size:9.0pt;font-family:&quot;Arial&quot;,=
+sans-serif;color:black;mso-ligatures:standardcontextual;mso-fareast-languag=
+e:EN-AU"><o:p></o:p></span></p>
+<p class=3D"MsoNormal" style=3D"background:white"><span lang=3D"EN-US" styl=
+e=3D"font-size:9.0pt;font-family:&quot;Arial&quot;,sans-serif;color:black;m=
+so-ligatures:standardcontextual;mso-fareast-language:EN-AU">W:&nbsp;</span>=
+<span lang=3D"EN-US" style=3D"font-size:9.0pt;font-family:&quot;Arial&quot;=
+,sans-serif;color:#2F5496;mso-ligatures:standardcontextual;mso-fareast-lang=
+uage:EN-AU"><a href=3D"https://url.au.m.mimecastprotect.com/s/aBmqCP7LGvtK5=
+o84XTz2DZM?domain=3Dscholar.google.com.au"><span style=3D"color:#2F5496">ht=
+tps://scholar.google.com.au/citations?user=3DvUpMcOkAAAAJ&amp;hl=3Den</span=
+></a><o:p></o:p></span></p>
+<p class=3D"MsoNormal" style=3D"background:white"><span lang=3D"EN-US" styl=
+e=3D"font-size:9.0pt;font-family:&quot;Arial&quot;,sans-serif;color:black;m=
+so-ligatures:standardcontextual;mso-fareast-language:EN-AU">W:&nbsp;&nbsp;h=
+ttps://www.newcastle.edu.au/profile/jiabao-yi<o:p></o:p></span></p>
+<p class=3D"MsoNormal" style=3D"background:white"><span lang=3D"EN-US" styl=
+e=3D"font-size:9.0pt;font-family:&quot;Arial&quot;,sans-serif;color:black;m=
+so-ligatures:standardcontextual;mso-fareast-language:EN-AU">GICAN Website:
+</span><span lang=3D"EN-US" style=3D"font-size:9.0pt;font-family:&quot;Aria=
+l&quot;,sans-serif;color:#2F5496;mso-ligatures:standardcontextual;mso-farea=
+st-language:EN-AU"><a href=3D"https://www.newcastle.edu.au/research-and-inn=
+ovation/centre/gican/about-us"><span style=3D"color:#2F5496">https://www.ne=
+wcastle.edu.au/research-and-innovation/centre/gican/about-us</span></a><o:p=
+></o:p></span></p>
+<p class=3D"MsoNormal" style=3D"background:white"><span lang=3D"EN-US" styl=
+e=3D"font-size:9.0pt;font-family:&quot;Arial&quot;,sans-serif;color:#2F5496=
+;mso-ligatures:standardcontextual;mso-fareast-language:EN-AU"><o:p>&nbsp;</=
+o:p></span></p>
+<p class=3D"MsoNormal" style=3D"background:white"><span lang=3D"EN-US" styl=
+e=3D"font-size:9.0pt;font-family:&quot;Arial&quot;,sans-serif;color:black;m=
+so-ligatures:standardcontextual;mso-fareast-language:EN-AU"><br>
+</span><span style=3D"color:black"><a href=3D"https://newcastle.edu.au/"><s=
+pan style=3D"font-size:9.0pt;font-family:&quot;Arial&quot;,sans-serif;color=
+:blue;mso-fareast-language:EN-AU;text-decoration:none"><img border=3D"0" wi=
+dth=3D"243" height=3D"85" style=3D"width:2.5333in;height:.8833in" id=3D"Pic=
+ture_x0020_4" src=3D"cid:image001.gif@01DA93C7.08723B90" alt=3D"The Univers=
+ity of Newcastle"></span></a></span><span style=3D"font-size:9.0pt;font-fam=
+ily:&quot;Arial&quot;,sans-serif;color:black;mso-ligatures:standardcontextu=
+al;mso-fareast-language:EN-AU"><o:p></o:p></span></p>
+<p class=3D"MsoNormal" style=3D"mso-margin-top-alt:auto;mso-margin-bottom-a=
+lt:auto"><span style=3D"font-size:9.0pt;font-family:&quot;Arial&quot;,sans-=
+serif;color:black;mso-ligatures:standardcontextual;mso-fareast-language:EN-=
+AU">Top 200 University in the world by QS World
+ University Rankings 2021<o:p></o:p></span></p>
+<p class=3D"MsoNormal" style=3D"mso-margin-top-alt:auto;mso-margin-bottom-a=
+lt:auto"><i><span style=3D"font-size:9.0pt;font-family:&quot;Arial&quot;,sa=
+ns-serif;color:black;mso-ligatures:standardcontextual;mso-fareast-language:=
+EN-AU">I acknowledge the Traditional Custodians
+ of the land in which the University resides and pay my respect to Elders p=
+ast, present and emerging.</span></i><span style=3D"font-size:9.0pt;font-fa=
+mily:&quot;Arial&quot;,sans-serif;color:black;mso-ligatures:standardcontext=
+ual;mso-fareast-language:EN-AU"><br>
+<i>I extend this acknowledgement to the Awabakal people of the land in whic=
+h the Callaghan campus resides and which I work.</i><o:p></o:p></span></p>
+<p class=3D"MsoNormal" style=3D"mso-margin-top-alt:auto;mso-margin-bottom-a=
+lt:auto"><span style=3D"font-size:7.5pt;font-family:&quot;Arial&quot;,sans-=
+serif;color:black;mso-ligatures:standardcontextual;mso-fareast-language:EN-=
+AU">CRICOS Provider 00109J</span><span style=3D"font-size:9.0pt;font-family=
+:&quot;Arial&quot;,sans-serif;color:black;mso-ligatures:standardcontextual;=
+mso-fareast-language:EN-AU"><o:p></o:p></span></p>
+<p class=3D"MsoNormal" style=3D"background:white"><span style=3D"font-size:=
+9.0pt;font-family:&quot;Arial&quot;,sans-serif;color:black;mso-ligatures:st=
+andardcontextual;mso-fareast-language:EN-AU"><o:p>&nbsp;</o:p></span></p>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0cm =
+0cm 0cm">
+<p class=3D"MsoNormal"><b><span lang=3D"EN-US">From:</span></b><span lang=
+=3D"EN-US"> Rupom Saha &lt;Rupom.Saha@uon.edu.au&gt;
+<br>
+<b>Sent:</b> Saturday, April 20, 2024 9:21 AM<br>
+<b>To:</b> Jiabao Yi &lt;Jiabao.Yi@newcastle.edu.au&gt;<br>
+<b>Cc:</b> Warren Reilly &lt;warren.reilly@newcastle.edu.au&gt;<br>
+<b>Subject:</b> FYP Final Report Eaxmples<o:p></o:p></span></p>
+</div>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;font-family:&quot;Ap=
+tos&quot;,sans-serif;color:black">Hello Sir,<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;font-family:&quot;Ap=
+tos&quot;,sans-serif;color:black"><o:p>&nbsp;</o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;font-family:&quot;Ap=
+tos&quot;,sans-serif;color:black">I had a discussion with my supervisor and=
+ we were wondering if you or anyone who can, will be able to provide me wit=
+h some examples of FYP reports that guarantees
+ a passing mark.<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;font-family:&quot;Ap=
+tos&quot;,sans-serif;color:black"><o:p>&nbsp;</o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;font-family:&quot;Ap=
+tos&quot;,sans-serif;color:black">It will be highly appreciated if there we=
+re multiple examples of different passing grades, like Pass, Credit and Dis=
+tinction, even one Higher Distinction. I would
+ love to conclude my FYP on a good note and seeing an example will greatly =
+increase the chances of that.<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;font-family:&quot;Ap=
+tos&quot;,sans-serif;color:black"><o:p>&nbsp;</o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;font-family:&quot;Ap=
+tos&quot;,sans-serif;color:black">Thank you.<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;font-family:&quot;Ap=
+tos&quot;,sans-serif;color:black"><o:p>&nbsp;</o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;font-family:&quot;Ap=
+tos&quot;,sans-serif;color:black">Sincerely,<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;font-family:&quot;Ap=
+tos&quot;,sans-serif;color:black">Rupom Saha<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;font-family:&quot;Ap=
+tos&quot;,sans-serif;color:black">c3268577<o:p></o:p></span></p>
+</div>
+</div>
+</body>
+</html>
+
+--_000_SYBP282MB2881E6498260B4F6C96B8E37DA0C2SYBP282MB2881AUSP_--
+
+--_004_SYBP282MB2881E6498260B4F6C96B8E37DA0C2SYBP282MB2881AUSP_
+Content-Type: image/gif; name="image001.gif"
+Content-Description: image001.gif
+Content-Disposition: inline; filename="image001.gif"; size=6740;
+	creation-date="Sat, 20 Apr 2024 22:38:23 GMT";
+	modification-date="Sat, 20 Apr 2024 22:38:23 GMT"
+Content-ID: <image001.gif@01DA93C7.08723B90>
+Content-Transfer-Encoding: base64
+
+R0lGODlh8gBVAHcAACH/C01TT0ZGSUNFOS4wGAAAAAxtc09QTVNPRkZJQ0U5LjD+RZIKoQAsAAAA
+APIAVQCH/////f792djYpqWlgX9/YmBgR0VFMS8vIyAgIR4eJCEhMzAwTEpKY2FheXd3nJqazs3N
+8vLy5eTkt7e3ycjI9fX1/v7+urq6e3l5Pjw8GxgYBwQEAAAADAoKFxQUHhsbJSIiGhcXHRoaXVtb
+kI6O29raMC0t0M/P+vr64N/fi4qKOTc3CwgIDwsLGRYWIB0dJiMjFhISBAIBw8LC//7+sbCwamho
+U1FR0tLS19bWb21tHxwcGBUVmJeX6+rqkZCQCAUFAQAAvLu77OvrdXR0lpWV6OfogH5+JiQkDgoK
+oJ+fJyUlCAcHWFZWjo2NEg8P4eDgVVNSrKurODY2EA0NIh8fNDIy5uXl8fHxaGZmBAEBAgAAPTo6
+/Pv7IyEhwsHBLSoqHBkZ8PDwUE5OREJCjIuLW1lZ/f7+ZWNj1dTUdHJyRkRE8/PzzMvLBQMD6enp
+NjQ0o6KiExAQoaCgLiwsJCIiCQYFtrW1r66u4uHhy8rKREFBCgcH397eqaioSUdHh4WFz87O3Nvb
+3d3dzczMn56eKykp7e3tlJOTKicng4KCKSUlgoCA+Pj4BgQDUU9P9vb2FBERxMPDubi4aWdneHZ2
+Q0FB7u7tEQ4OT01NlZSUAwAAOzk57u7u2NfXraysxcXF3t7eqqmpnp2dmpmZ0dDQsK+v8O/vtbS0
+0tHRl5aWpKOjYV9fp6ammZiY6unpSkhIfXt7o6OjysnJQj8/NTMzX11dd3V1WlhYhIKChYSEwcDA
+JyQkvr291tXVQD09pKSkWVdXx8fHUlBQs7KyTkxMbmxsiIeH5+fmVVRUIB8fXFpaq6qqtLOzrq2t
+cnFxbGpq9fT0/Pz8JSMj5OPjyMfHZ2Vle3p6cW9v4+PiOjg4SEZGw8PD9PT0jYyMjYuLk5KSfn19
+aGdncG9vYF5eiYiI5OTkZmRkv76+GxoaV1VV2tnZxsbGwL+/p6en1NPThIODioiI+vn5/fz8bm1t
+T0xMqKen6ejomJaWWllZGhYW+fn5JyYmtrS0AQIDAQIDCP8AAQgcSLCgwYMIEwoMIGAAgQIGDiBI
+oGABgwYOHkCIoLCjx48gQ4ocSbKkyZMoCUqYQKGCQQsXMGTQsIFDBw8fECgAEYIDBxEjSJRISbSo
+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
+ViAAukFSQTTSKQMCADs=
+
+--_004_SYBP282MB2881E6498260B4F6C96B8E37DA0C2SYBP282MB2881AUSP_--

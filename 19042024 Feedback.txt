@@ -1,0 +1,20 @@
+You targeted a complicated series of processes that were based on real-world professional scenarios.
+
+You developed a process flow diagram with the intention of identifying potential areas for Mecha to add value.
+
+You have pushed into developing a literature review, however there are a restricted number of academic (ie not commercially confidential) papers regarding automation in your research field.
+
+
+%%
+
+
+
+Develop some form of physical prototype that targets a small number (1?) of the potential automation areas. Give priority to a process that is easier to 'simulate' and likely to have a higher impact on the actual process of diagnosing and repairing the phone.
+
+Heavily record the development and testing of the prototype. Better to have 'too many' images and video, than to not have enough.
+
+Bring the literature review to a conclusion by dedicating a few hours to find ANY papers/articles that deal with automation of diagnosis/repair from ANY electronic devices.
+
+Put in your schedule to spend some time (1hr / week) writing up results into your final report. The regular writing is to remove the crush at the end of the semester and it reveals the information that you do not currently have (ie what you have to do to finish this)
+
+Put pressure on whomever is running the FYP course to provide examples of 'HD' and 'Pass' papers from previous mecha students. They can be de-identified, you do not mind. You are just trying to develop an understanding of how much work is involved in a 'P' and how much more for a 'HD'
